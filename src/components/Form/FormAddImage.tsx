@@ -1,12 +1,11 @@
 import { Box, Button, Stack, useToast } from '@chakra-ui/react';
-import { FieldError, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '../../services/api';
 import { FileInput } from '../Input/FileInput';
 import { TextInput } from '../Input/TextInput';
-import { AxiosError } from 'axios';
 
 interface FormAddImageProps {
   closeModal: () => void;
@@ -25,7 +24,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
   const formValidations = {
     image: {
-      // TODO REQUIRED, LESS THAN 10 MB AND ACCEPTED FORMATS VALIDATIONS
       required: true,
       validate: {
         lessThan10MB: (fileList: File[]) =>
@@ -33,11 +31,9 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         acceptedFormats: (fileList: File[]) =>
           /[\/.](gif|jpe?g|png)$/i.test(fileList[0].type) ||
           'Somente são aceitos arquivos PNG, JPEG e GIF',
-        // acceptedFormats
       },
     },
     title: {
-      // TODO REQUIRED, MIN AND MAX LENGTH VALIDATIONS
       required: 'Título obrigatório',
       minLength: {
         value: 2,
@@ -49,7 +45,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
       },
     },
     description: {
-      // TODO REQUIRED, MAX LENGTH VALIDATIONS
       required: 'Descrição obrigatória',
       maxLength: {
         value: 65,
@@ -61,14 +56,12 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const queryClient = useQueryClient();
   const mutation = useMutation(
     async (image: NewImageData) => {
-      // TODO MUTATION API POST REQUEST,
       await api.post('/api/images', {
         ...image,
         url: imageUrl,
       });
     },
     {
-      // TODO ONSUCCESS MUTATION
       onSuccess: () => {
         queryClient.invalidateQueries(['images']);
       },
@@ -82,7 +75,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
   const onSubmit = async (data: NewImageData): Promise<void> => {
     try {
-      // TODO SHOW ERROR TOAST IF IMAGE URL DOES NOT EXISTS
       if (!imageUrl) {
         toast({
           title: 'Imagem não adicionada',
@@ -95,10 +87,8 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         return;
       }
 
-      // TODO EXECUTE ASYNC MUTATION
       await mutation.mutateAsync(data);
 
-      // TODO SHOW SUCCESS TOAST
       toast({
         title: 'Imagem cadastrada',
         description: 'Sua imagem foi cadastrada com sucesso.',
@@ -107,7 +97,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         isClosable: true,
       });
     } catch {
-      // TODO SHOW ERROR TOAST IF SUBMIT FAILED
       toast({
         title: 'Falha no cadastro',
         description: 'Ocorreu um erro ao tentar cadastrar a sua imagem.',
@@ -116,7 +105,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         isClosable: true,
       });
     } finally {
-      // TODO CLEAN FORM, STATES AND CLOSE MODAL
       setImageUrl('');
       setLocalImageUrl('');
       reset();
@@ -133,25 +121,19 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
           setLocalImageUrl={setLocalImageUrl}
           setError={setError}
           trigger={trigger}
-          // TODO SEND IMAGE ERRORS
           error={errors.image}
-          // TODO REGISTER IMAGE INPUT WITH VALIDATIONS
           {...register('image', formValidations.image)}
         />
 
         <TextInput
           placeholder="Título da imagem..."
-          // TODO SEND TITLE ERRORS
           error={errors.title}
-          // TODO REGISTER TITLE INPUT WITH VALIDATIONS
           {...register('title', formValidations.title)}
         />
 
         <TextInput
           placeholder="Descrição da imagem..."
-          // TODO SEND DESCRIPTION ERRORS
           error={errors.description}
-          // TODO REGISTER DESCRIPTION INPUT WITH VALIDATIONS
           {...register('description', formValidations.description)}
         />
       </Stack>
