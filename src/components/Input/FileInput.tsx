@@ -82,6 +82,7 @@ const FileInputBase: ForwardRefRenderFunction<
       await onChange(event);
       trigger('image');
 
+      // send data with keys
       const formData = new FormData();
 
       formData.append(event.target.name, event.target.files[0]);
