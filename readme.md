@@ -19,7 +19,7 @@
 - [Faunadb][faunadb]
 - [React Hook Forms][react-hook-forms]
 - [React Query][react-query]
-- [Framer Motion][framer-notion]
+- [Framer Motion][framer-motion]
 - [Chakra UI][chakra-ui]
 - [Axios][axios]
 
@@ -30,6 +30,7 @@
 [react-query]: https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/
 [chakra-ui]: https://chakra-ui.com/
 [axios]: https://axios-http.com/docs/intro
+[framer-motion]: https://www.framer.com/motion/
 
 ### 🤔 How run it?
 
