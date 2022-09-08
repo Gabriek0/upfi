@@ -1,5 +1,14 @@
 <h1 align="left">Upfi 🖼️</h1>
 
+### 🖥️ Preview
+<div align="center">
+<img src="/public/upfi-desktop.gif"/>
+</div>
+<br></br>
+<div align="center">
+<img src="/public/upfi-mobile.gif"/>
+</div>
+<br></br>
 
 <p align="justify">A project to list and add images, using FaunaDB, ImgBB, React Query, React Hook Forms and Chakra UI.</p>
 

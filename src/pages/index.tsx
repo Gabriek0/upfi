@@ -58,6 +58,8 @@ export default function Home(): JSX.Element {
     <>
       <Header />
 
+      <title>upfi</title>
+
       <Box maxW={1120} px={20} mx="auto" my={20}>
         <CardList cards={formattedData} />
 
